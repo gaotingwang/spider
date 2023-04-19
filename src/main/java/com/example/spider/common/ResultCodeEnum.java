@@ -4,11 +4,11 @@ public enum ResultCodeEnum {
     /**
      * 成功
      */
-    SUCCESS(1),
+    SUCCESS(0),
     /**
      * 失败
      */
-    ERROR(0),
+    ERROR(1),
     ;
 
     private final Integer code;

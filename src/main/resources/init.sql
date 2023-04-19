@@ -11,3 +11,6 @@ create table t_fucai
     constraint t_fucai_pk
         primary key (id)
 );
+
+create index t_fucai_code_index
+    on t_fucai (code);
