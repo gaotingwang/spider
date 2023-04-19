@@ -1,0 +1,13 @@
+{
+  "allInOne": true,
+  "outPath": "D:\\opt\\doc\\java",
+  "openUrl": "http://torna.xxx.com/torna/api",
+  "appToken": "xxxxxxxxx",
+  "isReplace": true,
+  "tornaDebug": false,
+  "debugEnvName": "测试环境",
+  "pathPrefix": "/spider",
+  "ignoreRequestParams":[
+
+  ]
+}
