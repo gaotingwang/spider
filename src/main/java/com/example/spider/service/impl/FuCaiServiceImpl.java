@@ -4,8 +4,12 @@ import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.example.spider.common.PageResult;
 import com.example.spider.domain.FuCai;
 import com.example.spider.mapper.FuCaiMapper;
 import com.example.spider.service.IFuCaiService;
@@ -65,5 +69,13 @@ public class FuCaiServiceImpl extends ServiceImpl<FuCaiMapper, FuCai> implements
 //            return this.fetch(pageNo,pageSize);
 //        }
         return true;
+    }
+
+    @Override
+    public PageResult<FuCai> findPage(long pageNo, long pageSize) {
+        LambdaQueryWrapper<FuCai> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.orderByDesc(FuCai::getId);
+        IPage<FuCai> result = this.page(new Page<>(pageNo, pageSize), queryWrapper);
+        return PageResult.<FuCai>builder().data(result.getRecords()).count(result.getTotal()).build();
     }
 }

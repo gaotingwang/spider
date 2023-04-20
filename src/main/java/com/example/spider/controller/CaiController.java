@@ -1,6 +1,7 @@
 package com.example.spider.controller;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.example.spider.common.PageResult;
 import com.example.spider.common.Result;
 import com.example.spider.controller.dto.FetchDTO;
 import com.example.spider.domain.FuCai;
@@ -24,6 +25,11 @@ public class CaiController {
     @GetMapping("/fu/list")
     public Result<List<FuCai>> getFuCaiAll() {
         return Result.succeed(fuCaiService.list(Wrappers.<FuCai>lambdaQuery().orderByDesc(FuCai::getId)));
+    }
+
+    @GetMapping("/fu/page")
+    public PageResult<FuCai> getFuCaiPage(@RequestParam long pageNo, @RequestParam long pageSize) {
+        return fuCaiService.findPage(pageNo, pageSize);
     }
 
     @PostMapping("/fu/fetch")
