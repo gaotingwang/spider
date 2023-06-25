@@ -3,6 +3,7 @@ package com.example.spider.config;
 import com.example.spider.common.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
+import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -21,12 +22,39 @@ public class GlobalExceptionAdvice {
         return Result.failed(message);
     }
 
-    @ExceptionHandler(value = MethodArgumentNotValidException.class)
-    public Result<String> handleBindException(MethodArgumentNotValidException exception){
-        log.error("bind error ", exception);
-        BindingResult bindingResult = exception.getBindingResult();
-        FieldError fieldError = bindingResult.getFieldError();
-        assert fieldError != null;
-        return Result.failed(fieldError.getDefaultMessage());
+    /**
+     * 参数校验不通过
+     *
+     * @param e BindException
+     * @return Result<Void>
+     */
+    @ExceptionHandler(BindException.class)
+    public Result<Void> handlerBindException(BindException e) {
+        return Result.failed(this.buildMsg(e.getBindingResult()));
+    }
+
+    /**
+     * 参数校验不通过
+     *
+     * @param e MethodArgumentNotValidException
+     * @return Result<Void>
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Result<Void> handlerMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+        return Result.failed(buildMsg(e.getBindingResult()));
+    }
+
+    /**
+     * 构建参数错误提示信息
+     *
+     * @param bindingResult BindingResult
+     * @return String
+     */
+    private String buildMsg(BindingResult bindingResult) {
+        StringBuilder builder = new StringBuilder(32);
+        for (FieldError error : bindingResult.getFieldErrors()) {
+            builder.append(", [").append(error.getField()).append(":").append(error.getDefaultMessage()).append("]");
+        }
+        return builder.substring(2);
     }
 }
