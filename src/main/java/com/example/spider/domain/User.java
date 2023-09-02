@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 @Data
 @TableName(value = "sys_user")
 @NoArgsConstructor
-@AllArgsConstructor
 public class User {
 
     @TableId(type = IdType.AUTO)
@@ -31,6 +30,9 @@ public class User {
      */
     private GradeEnum grade;
 
+    @TableField(fill = FieldFill.INSERT)
+    private Integer deleted;
+
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private String operator;
 
@@ -39,4 +41,11 @@ public class User {
 
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Long updateTime;
+
+    public User(String name, Integer age, String email, GradeEnum grade) {
+        this.name = name;
+        this.age = age;
+        this.email = email;
+        this.grade = grade;
+    }
 }

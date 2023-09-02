@@ -16,6 +16,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
     public void insertFill(MetaObject metaObject) {
         log.info("start insert fill ....");
         // 只有在属性上标注了 @TableField(fill = FieldFill.INSERT_UPDATE/FieldFill.INSERT) 才会对对应属性做赋值操作
+        this.strictInsertFill(metaObject, "deleted", Integer.class, 0);
         this.strictInsertFill(metaObject, "operator", String.class, "Jetty");
         this.strictInsertFill(metaObject, "createTime", Long.class, System.currentTimeMillis());
         // 也可使用setFieldValByName
