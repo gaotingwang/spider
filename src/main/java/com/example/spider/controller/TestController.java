@@ -1,11 +1,15 @@
 package com.example.spider.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.spider.common.PageResult;
 import com.example.spider.domain.User;
 import com.example.spider.domain.enums.GradeEnum;
 import com.example.spider.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/test")
@@ -40,4 +44,10 @@ public class TestController {
         return userMapper.deleteById(id);
     }
 
+    @GetMapping("/users")
+    public PageResult<User> getPages(@RequestParam int pageNo, @RequestParam int pageSize, @RequestBody User qry) {
+        Page<User> page = new Page<>(pageNo, pageSize);
+        List<User> result = userMapper.page(qry, page);
+        return PageResult.<User>builder().data(result).count(page.getTotal()).build();
+    }
 }

@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 /**
  * 用户实体
  * @author gtw
@@ -41,6 +43,9 @@ public class User {
 
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Long updateTime;
+
+    @TableField(exist = false)
+    private List<Integer> ages;
 
     public User(String name, Integer age, String email, GradeEnum grade) {
         this.name = name;

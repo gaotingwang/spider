@@ -5,7 +5,7 @@ spring:
     active: @spring.profiles.active@
 
 logging:
-  file: /opt/applications/java/${spring.application.name}/logs
+  file: ./logs
 
 mybatis-plus:
   global-config:
