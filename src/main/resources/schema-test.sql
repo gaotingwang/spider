@@ -8,6 +8,7 @@ CREATE TABLE sys_user
     email       VARCHAR(50) NULL DEFAULT NULL COMMENT '邮箱',
     grade       tinyint NOT NULL,
     deleted     tinyint NULL,
+    tenant_id   VARCHAR(255) NULL,
     operator    VARCHAR(30) NULL DEFAULT NULL COMMENT '操作员',
     create_time bigint  NOT NULL COMMENT '创建时间',
     update_time bigint  NOT NULL COMMENT '更新时间',

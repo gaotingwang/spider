@@ -32,6 +32,8 @@ public class User {
      */
     private GradeEnum grade;
 
+    private String tenantId;
+
     @TableField(fill = FieldFill.INSERT)
     private Integer deleted;
 

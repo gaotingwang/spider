@@ -22,15 +22,17 @@ public class TestController {
     @GetMapping("/user/insert")
     public User insert() throws InterruptedException {
         User user = new User("Tom", 1, "tom@qq.com", GradeEnum.HIGH);
+        // 手动设置了tenantId，系统不再重新赋值，如果为空，系统可以自动复制给tenantId
+        user.setTenantId("test_user");
         userMapper.insert(user);
         User beforeUser = userMapper.selectById(user.getId());
         log.info("before user:{}", beforeUser);
 
-        Thread.sleep(1 * 1000L);
-
-        beforeUser.setOperator(null);
-        beforeUser.setAge(12);
-        userMapper.updateById(beforeUser);
+//        Thread.sleep(1 * 1000L);
+//
+//        beforeUser.setOperator(null);
+//        beforeUser.setAge(12);
+//        userMapper.updateById(beforeUser);
         return userMapper.selectById(user.getId());
     }
 
