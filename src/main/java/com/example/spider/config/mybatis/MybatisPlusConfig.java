@@ -1,4 +1,4 @@
-package com.example.spider.config;
+package com.example.spider.config.mybatis;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.autoconfigure.MybatisPlusPropertiesCustomizer;
@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class MybatisConfig {
+public class MybatisPlusConfig {
 
     @Bean
     public MybatisPlusPropertiesCustomizer mybatisPlusPropertiesCustomizer() {
