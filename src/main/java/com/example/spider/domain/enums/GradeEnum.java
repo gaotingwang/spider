@@ -18,4 +18,18 @@ public enum GradeEnum {
 
     @JsonValue //标记响应json值
     private final String desc;
+
+    // Jackson在处理Enum类型上有坑, @JsonValue在int类型上，反序列化根据index进行处理，非实际code进行反序列化，可以使用@JsonCreator
+    // https://sunzy.me/2021/03/jackson-enum/
+    /*
+    @JsonCreator
+    public static GradeEnum forValues(Integer code){
+        for(GradeEnum gradeEnum : GradeEnum.values()){
+            if (gradeEnum.port == code){
+                return GradeEnum;
+            }
+        }
+        return null;
+    }
+    */
 }
