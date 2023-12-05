@@ -2,13 +2,18 @@ package com.example.spider.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.spider.common.PageResult;
+import com.example.spider.common.Result;
+import com.example.spider.controller.dto.CmdDTO;
 import com.example.spider.domain.User;
 import com.example.spider.domain.enums.GradeEnum;
+import com.example.spider.domain.enums.OperateTypeEnum;
 import com.example.spider.mapper.UserMapper;
+import com.example.spider.operate.OperateLog;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -51,5 +56,12 @@ public class TestController {
         Page<User> page = new Page<>(pageNo, pageSize);
         List<User> result = userMapper.page(qry, page);
         return PageResult.<User>builder().data(result).count(page.getTotal()).build();
+    }
+
+    @PostMapping("/records")
+//    @OperateLog(type = OperateTypeEnum.TASK_MANAGER, desc = "测试日志记录")
+    @OperateLog(type = OperateTypeEnum.TASK_MANAGER)
+    public Result<Boolean> test(@RequestBody @Valid CmdDTO cmdDTO) {
+        return Result.succeed("success");
     }
 }
